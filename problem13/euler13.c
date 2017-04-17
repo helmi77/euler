@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
     sum(&numbers, arr_len);
     for (int i = 0; i < arr_len; ++i)
     {
-        printf("%d ", numbers[i]);
+        printf("%d", numbers[i]);
     }
     printf("\n");
 
