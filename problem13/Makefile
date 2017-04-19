@@ -1,9 +1,11 @@
 CC=gcc
+CFLAGS=-std=gnu11
+
 
 all: euler
 
 euler: euler13.c
-	$(CC) $< -o $@ -lm
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -f euler
