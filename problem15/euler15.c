@@ -6,8 +6,6 @@
 
 void parse_args(int argc, char* argv[], int *grid_size)
 {
-    *grid_size = -1;
-
     int opt = 0;
     while ((opt = getopt(argc, argv, "s:")) != -1)
     {
