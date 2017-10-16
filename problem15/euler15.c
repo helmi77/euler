@@ -61,7 +61,7 @@ int main(int argc, char* argv[])
         exit(EXIT_FAILURE);
     }
 
-    uintmax_t **triangle = malloc(sizeof(int*) * rows);
+    uintmax_t **triangle = malloc(sizeof(uintmax_t*) * rows);
     generate_triangle(&triangle, rows);
 
     uintmax_t sum = get_paths(triangle, rows - 1);
