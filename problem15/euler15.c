@@ -1,3 +1,5 @@
+#include <inttypes.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -21,26 +23,51 @@ void parse_args(int argc, char* argv[], int *grid_size)
     }
 }
 
-int** generate_triangle(int height)
+void generate_triangle(uintmax_t ***triangle, int height)
 {
-    int **triangle = malloc(sizeof(int) * height);
-    // TODO: Populate the triangle rows up to height
-    return triangle;
+    for (int i = 0; i < height; ++i)
+    {
+        int columns = (i == 0) ? 1 : i + 2;
+        (*triangle)[i] = malloc(sizeof(uintmax_t) * columns);
+        for (int j = 0; j < columns; ++j)
+        {
+            if (j == 0 || j == columns - 1)
+                (*triangle)[i][j] = 1;
+            else
+            {
+                if (i == 1)
+                    (*triangle)[i][j] = 2;
+                else
+                    (*triangle)[i][j] = (*triangle)[i - 1][j - 1] + (*triangle)[i - 1][j];
+            }
+        }
+    }
+}
+
+uintmax_t get_paths(uintmax_t **triangle, int row)
+{
+    return triangle[row][(row + 2) / 2];
 }
 
 int main(int argc, char* argv[])
 {
     int grid_size = -1;
     parse_args(argc, argv, &grid_size);
-    if (grid_size < 0)
+    int rows = grid_size * 2;
+
+    if (grid_size <= 0)
     {
-        fprintf(stderr, "Usage: %s -s gridsize\n", argv[0]);
+        fprintf(stderr, "Grid size must be a positive integer\n");
         exit(EXIT_FAILURE);
     }
 
-    int **triangle = generate_triangle(grid_size);
+    uintmax_t **triangle = malloc(sizeof(int*) * rows);
+    generate_triangle(&triangle, rows);
 
-    for (int i = 0; i < grid_size; ++i)
+    uintmax_t sum = get_paths(triangle, rows - 1);
+    printf("%+"PRId64"\n", sum);
+
+    for (int i = 0; i < rows; ++i)
     {
         free(triangle[i]);
     }
