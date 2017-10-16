@@ -1,12 +1,12 @@
 CC=gcc
 CFLAGS=-std=gnu11
 
-all: euler15
+all: euler
 
-euler15: euler15.c
+euler: euler15.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f euler15
+	rm -f euler
 
 .PHONY: all clean
