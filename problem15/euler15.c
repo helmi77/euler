@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
     generate_triangle(&triangle, rows);
 
     uintmax_t sum = get_paths(triangle, rows - 1);
-    printf("%+"PRId64"\n", sum);
+    printf("%"PRId64"\n", sum);
 
     for (int i = 0; i < rows; ++i)
     {
